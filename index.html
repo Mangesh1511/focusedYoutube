@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Video Viewer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    input {
+      width: 60%;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    iframe {
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Enter YouTube Video URL</h2>
+  <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=VIDEO_ID" oninput="showVideo()" />
+
+  <div id="videoContainer"></div>
+
+  <script>
+    function extractVideoId(url) {
+      const match = url.match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([^&\s]+)/);
+      return match ? match[1] : null;
+    }
+
+    function showVideo() {
+      const input = document.getElementById("youtubeUrl").value;
+      const videoId = extractVideoId(input);
+      const container = document.getElementById("videoContainer");
+
+      if (videoId) {
+        container.innerHTML = `
+          <iframe width="560" height="315"
+            src="https://www.youtube.com/embed/${videoId}"
+            frameborder="0" allowfullscreen>
+          </iframe>`;
+      } else {
+        container.innerHTML = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
